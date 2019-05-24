@@ -55,6 +55,17 @@ class Snake:
     def render_pomme(self):
         self.pomme.supprimerEtGenerer(self)
 
+    def mort(self):
+        if list(self.pos[0]) in self.pos[1:]:
+            return True
+        return False
+
+    def mange(self):
+        if self.pos[0] == self.pomme.pos:
+            return True
+        return False
+
+
     def move(self, dir: int=DROITE):
         temp = list(self.pos[0])
         self.pos.insert(1, temp)
@@ -74,7 +85,7 @@ class Snake:
         if self.pos[0] in self.coordonnees_bordures_sans_doublons:
             print("touché")
 
-        if self.pos[0] == self.pomme.pos:
+        if self.mange():
             print("miam")
             self.pomme.supprimerEtGenerer(self)
             while self.pomme.pos in self.pos:
@@ -82,6 +93,6 @@ class Snake:
         else:
             last = self.pos.pop()
         
-        if list(self.pos[0]) in self.pos[1:]:
-            print ("touché") 
+        if self.mort():
+            print("mort")
 
