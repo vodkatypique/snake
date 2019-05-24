@@ -56,9 +56,7 @@ class Snake:
         self.pomme.supprimerEtGenerer(self)
 
     def move(self, dir: int=DROITE):
-        print(self.pos)
         temp = list(self.pos[0])
-        print(temp)
         self.pos.insert(1, temp)
         if dir == DROITE:
             if self.pos[0][0] + VITESSE_DEPLACEMENT + self.image_tete.get_width() <= self.ecran_largeur:
@@ -73,15 +71,17 @@ class Snake:
             if self.pos[0][1] + VITESSE_DEPLACEMENT + self.image_tete.get_height() <= self.ecran_hauteur:
                 self.pos[0][1] += VITESSE_DEPLACEMENT
         
-        print(self.pos)
-
         if self.pos[0] in self.coordonnees_bordures_sans_doublons:
             print("touché")
 
         if self.pos[0] == self.pomme.pos:
             print("miam")
             self.pomme.supprimerEtGenerer(self)
+            while self.pomme.pos in self.pos:
+                self.pomme.supprimerEtGenerer(self)
         else:
             last = self.pos.pop()
         
+        if list(self.pos[0]) in self.pos[1:]:
+            print ("touché") 
 
