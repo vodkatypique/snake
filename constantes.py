@@ -1,0 +1,7 @@
+HAUT = 1
+BAS = 2
+DROITE = 3
+GAUCHE = 4
+
+VITESSE_DEPLACEMENT = 20
+# en px par seconde
