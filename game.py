@@ -15,9 +15,10 @@ class Game:
             DROITE: const.K_RIGHT,
             GAUCHE: const.K_LEFT
         }
+        self.touche = None
 
     def prepare(self):
-        pygame.key.set_repeat(200, 50)
+        pygame.key.set_repeat(200, 20)
         self.continuer = True
         self.snake = Snake(self.ecran)
 
@@ -25,27 +26,30 @@ class Game:
         pygame.draw.rect(self.ecran, (0, 0, 0), (0, 0) + self.ecran.get_size())  # on dessine le fond
         self.snake.render()  # on dessine notre ecran
 
-    def process_event(self, event: pygame.event):
-        if event.type == const.KEYDOWN:
-            # et revoici l'utilité de nos constantes, utilisées comme clé de dictionnaire :)
-            # comme ça on peut plus facilement changer les controles ;)
-            if event.key == self.controles[HAUT]:
-                self.snake.move(HAUT)
-            if event.key == self.controles[BAS]:
-                self.snake.move(BAS)
-            if event.key == self.controles[DROITE]:
-                self.snake.move(DROITE)
-            if event.key == self.controles[GAUCHE]:
-                self.snake.move(GAUCHE)
-        if event.type == const.QUIT:
-            self.continuer = False
+    def process_event(self):
+        for event in pygame.event.get():
+            if event.type == const.KEYDOWN:
+                self.touche = event.key
+            if event.type == const.QUIT:
+                self.continuer = False
+
+        if self.touche == self.controles[HAUT]: 
+            self.snake.move(HAUT)
+        if self.touche == self.controles[BAS]:
+            self.snake.move(BAS)
+        if self.touche == self.controles[DROITE]:
+            self.snake.move(DROITE)
+        if self.touche == self.controles[GAUCHE]:
+            self.snake.move(GAUCHE)
+        
 
     def start(self):
         self.prepare()
+        clock = pygame.time.Clock()
 
         while self.continuer:
-            for event in pygame.event.get():
-                self.process_event(event)
+            clock.tick(CLOCK)
+            self.process_event()
 
             self.update_screen()
             pygame.display.flip()

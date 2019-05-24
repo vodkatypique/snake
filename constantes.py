@@ -3,5 +3,7 @@ BAS = 2
 DROITE = 3
 GAUCHE = 4
 
+CLOCK = 10
+
 VITESSE_DEPLACEMENT = 20
 # en px par seconde
