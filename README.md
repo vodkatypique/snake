@@ -1,6 +1,6 @@
 # snake
 snake in python, first program
 
-#dependance
+# dependance
 <li>pygame
 <li>random
