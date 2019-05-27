@@ -1,33 +1,25 @@
 import pygame
 from pygame import locals as const
 from game import Game
+from menu import Menu
 
 
 def main():
-    print("appuyer sur n'importe quelle touche pour jouer")
-
     pygame.init()
 
     ecran = pygame.display.set_mode((400, 200))
-    pygame.display.set_caption("Snake")
+    pygame.display.set_caption("Snake Menu")
+    menu_items = ('Start', 'Quit')
+    gamemenu = Menu(ecran, menu_items)
 
-    fond = pygame.image.load("images/menu.png").convert_alpha()
+    #fond = pygame.image.load("images/menu.png").convert_alpha()
 
-    continuer = True
     jeu = Game(ecran)
 
-    while continuer:
-        for event in pygame.event.get():
-            if event.type == const.QUIT:
-                continuer = False
-            if event.type == const.KEYDOWN:
-                ecran.fill((0, 0, 0))
-                jeu.start()
-                continuer = False
-
-        ecran.blit(fond, (0, 0))
-        pygame.display.flip()
-
+    while gamemenu.mainloop:
+        gamemenu.run()
+        if gamemenu.start_selected:
+            jeu.start()
     pygame.quit()
 
 if __name__ == "__main__":
