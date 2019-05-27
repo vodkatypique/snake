@@ -29,7 +29,8 @@ class Game:
     def process_event(self):
         for event in pygame.event.get():
             if event.type == const.KEYDOWN:
-                self.touche = event.key
+                if event.key in self.controles.values():
+                    self.touche = event.key
             if event.type == const.QUIT:
                 self.continuer = False
 
